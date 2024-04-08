@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_indigo_light">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/toply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5sdp"
+            android:src="@drawable/img" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:paddingTop="@dimen/_8sdp"
+            android:text="Nombre Pokemon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13sdp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Altura:"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.228"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toply">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/txt_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_text_detail"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="10"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintStart_toStartOf="@+id/toply"
+        app:layout_constraintTop_toBottomOf="@+id/height">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Peso:"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toEndOf="@+id/height"
+        app:layout_constraintTop_toBottomOf="@+id/toply">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/txt_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/background_text_detail"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="100"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="@+id/toply"
+        app:layout_constraintStart_toEndOf="@+id/txt_height"
+        app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimationView"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/dito"
+        app:lottie_speed="1.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

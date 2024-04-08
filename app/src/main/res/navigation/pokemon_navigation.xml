@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pokemon_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.technicaltest.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_pokemonList"
+            app:destination="@id/pokemonList"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/pokemonList" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonList"
+        android:name="com.example.technicaltest.ui.pokemonlist.PokemonList"
+        android:label="fragment_pokemon_list"
+        tools:layout="@layout/fragment_pokemon_list">
+        <action
+            android:id="@+id/action_pokemonList_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/pokemonDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.example.technicaltest.ui.pokemondetail.PokemonDetailFragment"
+        android:label="PokemonDetailFragment">
+        <argument
+            android:name="idPokemon"
+            app:argType="integer" />
+    </fragment>
+</navigation>
