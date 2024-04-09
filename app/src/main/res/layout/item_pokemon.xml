@@ -2,6 +2,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="2dp"
@@ -41,23 +42,27 @@
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:paddingTop="@dimen/_8sdp"
-        android:text="Nombre Pokemon"
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageEmploye"
-        app:layout_constraintTop_toTopOf="@+id/imageEmploye" />
+        app:layout_constraintTop_toTopOf="@+id/imageEmploye"
+        tools:text="Nombre Pokemon" />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/imageSave"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@drawable/selector_favorite"
+        android:button="@null"
+        android:checked="false"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/line_favorite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:useMaterialThemeColors="false"
+        tools:checked="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

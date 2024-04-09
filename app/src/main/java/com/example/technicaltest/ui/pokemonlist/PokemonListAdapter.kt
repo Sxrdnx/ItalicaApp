@@ -36,13 +36,17 @@ class PokemonListAdapter(
             root.setOnClickListener {
                 listener.onClickElement(pokemonElement.id)
             }
+
+            imageSave.setOnCheckedChangeListener { _, isChecked ->
+                println("${pokemonElement.name} is favorite: $isChecked")
+            }
             if (pokemonElement.url.isNotEmpty()) {
                 val requestOptions = RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(placeholderId)
                     .error(errorId)
                 glide
-                    .load(pokemonElement.url + "asdasdjsalkdasdjsj")
+                    .load(pokemonElement.url)
                     .apply(requestOptions)
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
