@@ -35,10 +35,14 @@ class PokemonDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pokemonDetailViewModel.pokemon.observe(viewLifecycleOwner, Observer(::handleEvent))
+        pokemonDetailBinding.imageSave.setOnCheckedChangeListener { _, isFavorite ->
+            pokemonDetailViewModel.onFavoriteClick(args.idPokemon, isFavorite)
+        }
     }
 
     fun handleEvent(event: Event<PokemonDomain>) {
         event.getContentIfNotHandled()?.let { pokemon ->
+            pokemonDetailBinding.imageSave.isChecked = pokemon.favorite
             pokemonDetailBinding.textName.text = pokemon.nombre
             pokemonDetailBinding.txtHeight.text = pokemon.altura.toString()
             pokemonDetailBinding.txtWeight.text = pokemon.peso.toString()

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/new_indigo_light">
@@ -12,32 +13,44 @@
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:background="@color/white"
+        android:background="@drawable/background_text_detail"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/imageSave"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:background="@drawable/selector_favorite"
+            android:button="@null"
+            android:checked="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:useMaterialThemeColors="false"
+            tools:checked="true" />
 
         <ImageView
             android:id="@+id/photo"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_5sdp"
             android:src="@drawable/img" />
 
         <TextView
             android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/poppins_regular"
             android:includeFontPadding="false"
-            android:paddingTop="@dimen/_8sdp"
-            android:text="Nombre Pokemon"
             android:textColor="@color/black"
-            android:textSize="@dimen/_13sdp" />
+            android:textSize="@dimen/_13sdp"
+            tools:text="Nombre Pokemon" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -105,21 +118,6 @@
         app:layout_constraintEnd_toEndOf="@+id/toply"
         app:layout_constraintStart_toEndOf="@+id/txt_height"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
-
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loadingAnimationView"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/dito"
-        app:lottie_speed="1.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

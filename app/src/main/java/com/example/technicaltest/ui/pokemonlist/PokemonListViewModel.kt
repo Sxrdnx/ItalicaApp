@@ -8,6 +8,7 @@ import com.example.data.Resource
 import com.example.data.Status
 import com.example.data.repository.PokemonRepository
 import com.example.domain.PokemonElement
+import com.example.domain.toPokemonElement
 import com.example.technicaltest.utils.Event
 import com.example.usecases.GetPokemonDetailUseCase
 import com.example.usecases.GetPokemonListUseCase
@@ -25,21 +26,18 @@ class PokemonListViewModel @Inject constructor(
     private val setPokemonFavorite: SetPokemonFavorite,
     private val pokemonRepository: PokemonRepository
 ) : ViewModel() {
-    var totalLoaded = 0
-    private val _loading = MutableLiveData<Event<Boolean>>()
-    val loading: LiveData<Event<Boolean>> get() = _loading
-
 
     private val _pokemonLits = MutableLiveData<Event<Resource<List<PokemonElement>>>>()
+
     val pokemonList: LiveData<Event<Resource<List<PokemonElement>>>> get() = _pokemonLits
 
-    fun getPokemonDatabase(dispatcher: CoroutineContext = Dispatchers.IO) {
+    private var totalLoaded = 0
+
+    fun getPokemonDatabase(dispatcher: CoroutineContext = Dispatchers.IO) =
         viewModelScope.launch(dispatcher) {
-            val result = pokemonRepository.getAllPokemonsLocal()
-                .map { PokemonElement(it.nombre, it.sprites, it.favorite, id = it.id) }
+            val result = pokemonRepository.getAllPokemonsLocal().map { it.toPokemonElement() }
             _pokemonLits.postValue(Event(Resource.success(result)))
         }
-    }
 
     fun getPokemonList(offset: Int) {
         viewModelScope.launch {
@@ -74,9 +72,7 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
-    fun onFavoriteClick(pokemon: PokemonElement, isFavorite: Boolean) {
-        viewModelScope.launch {
-            setPokemonFavorite(pokemon, isFavorite)
-        }
+    fun onFavoriteClick(pokemon: PokemonElement, isFavorite: Boolean) = viewModelScope.launch {
+        setPokemonFavorite(pokemon.id, isFavorite)
     }
 }

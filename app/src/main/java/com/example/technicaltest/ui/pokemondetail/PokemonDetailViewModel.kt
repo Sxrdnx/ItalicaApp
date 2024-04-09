@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.PokemonDomain
 import com.example.technicaltest.utils.Event
 import com.example.usecases.GetPokemonById
+import com.example.usecases.SetPokemonFavorite
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    private val getPokemonDetailUseCase: GetPokemonById
+    private val getPokemonDetailUseCase: GetPokemonById,
+    private val setPokemonFavorite: SetPokemonFavorite
 ) : ViewModel() {
     private val _pokemon = MutableLiveData<Event<PokemonDomain>>()
     val pokemon: LiveData<Event<PokemonDomain>> get() = _pokemon
@@ -28,6 +30,10 @@ class PokemonDetailViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) {
             _pokemon.postValue(Event(getPokemonDetailUseCase(id)!!))
         }
+    }
+
+    fun onFavoriteClick(idPokemon: Int, isFavorite: Boolean) = viewModelScope.launch {
+        setPokemonFavorite(idPokemon, isFavorite)
     }
 
 }
