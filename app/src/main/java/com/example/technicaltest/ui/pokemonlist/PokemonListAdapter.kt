@@ -36,9 +36,9 @@ class PokemonListAdapter(
             root.setOnClickListener {
                 listener.onClickElement(pokemonElement.id)
             }
-
+            imageSave.isChecked = pokemonElement.favorite
             imageSave.setOnCheckedChangeListener { _, isChecked ->
-                println("${pokemonElement.name} is favorite: $isChecked")
+                listener.onFavoriteClickElement(pokemonElement, isChecked)
             }
             if (pokemonElement.url.isNotEmpty()) {
                 val requestOptions = RequestOptions()

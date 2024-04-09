@@ -1,5 +1,8 @@
 package com.example.technicaltest.ui.pokemonlist
 
-fun interface PokemonListener {
+import com.example.domain.PokemonElement
+
+interface PokemonListener {
     fun onClickElement(id: Int)
+    fun onFavoriteClickElement(pokemon: PokemonElement, isFavorite: Boolean)
 }

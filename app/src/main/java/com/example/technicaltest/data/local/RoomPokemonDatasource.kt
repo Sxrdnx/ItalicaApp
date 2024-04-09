@@ -29,13 +29,13 @@ class RoomPokemonDatasource @Inject constructor(private val pokemonDao: PokemonD
         }
     }
 
-    override suspend fun saveAPokemon(pokemon: PokemonDetail) {
-        pokemonDao.savePokemon(pokemon = pokemon.toPokemonEntity())
+    override suspend fun savePokemon(pokemon: PokemonDetail) {
+        pokemonDao.savePokemon(pokemon.toPokemonEntity())
     }
 
 
-    override fun updatePokemon(pokemon: PokemonDomain): Int {
-        TODO("Not yet implemented")
+    override suspend fun updatePokemon(pokemon: PokemonDomain): Int {
+        return pokemonDao.updatePokemon(pokemon.toPokemonEntity())
     }
 
     fun PokemonDetail.toPokemonEntity(): PokemonEntity {
@@ -46,6 +46,19 @@ class RoomPokemonDatasource @Inject constructor(private val pokemonDao: PokemonD
             altura = height,
             peso = weight,
             tipo = types.map { it.type.name } as ArrayList<String>)
+    }
+
+    fun PokemonDomain.toPokemonEntity(): PokemonEntity {
+        return PokemonEntity(
+            id = id,
+            pokemonId = pokemonId,
+            nombre = nombre,
+            sprites = sprites,
+            altura = altura,
+            peso = peso,
+            tipo = tipo,
+            favorite = favorite
+        )
     }
 
 

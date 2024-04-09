@@ -42,12 +42,9 @@ class PokemonList : Fragment(), PokemonListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         pokemonListViewModel.getPokemonList(currentOffset)
         pokemonListBinding.rcyPokemonList.adapter = adapter
         scrollRecycler()
-
-
         pokemonListViewModel.pokemonList.observe(viewLifecycleOwner, Observer(::handleUi))
     }
 
@@ -87,6 +84,7 @@ class PokemonList : Fragment(), PokemonListener {
                 }
 
                 Status.ERROR -> {
+                    pokemonListBinding.loadingAnimationView.visibility = View.GONE
                     requireActivity().toast(result.message!!)
                 }
             }
@@ -98,6 +96,10 @@ class PokemonList : Fragment(), PokemonListener {
         this.findNavController().navigate(
             PokemonListDirections.actionPokemonListToPokemonDetailFragment(id)
         )
+    }
+
+    override fun onFavoriteClickElement(pokemon: PokemonElement, isFavorite: Boolean) {
+        pokemonListViewModel.onFavoriteClick(pokemon, isFavorite)
     }
 
 

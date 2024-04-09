@@ -11,6 +11,7 @@ import com.example.domain.PokemonElement
 import com.example.technicaltest.utils.Event
 import com.example.usecases.GetPokemonDetailUseCase
 import com.example.usecases.GetPokemonListUseCase
+import com.example.usecases.SetPokemonFavorite
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ import kotlin.coroutines.CoroutineContext
 class PokemonListViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase,
     private val getPokemonDetailUseCase: GetPokemonDetailUseCase,
+    private val setPokemonFavorite: SetPokemonFavorite,
     private val pokemonRepository: PokemonRepository
 ) : ViewModel() {
     var totalLoaded = 0
@@ -31,9 +33,7 @@ class PokemonListViewModel @Inject constructor(
     private val _pokemonLits = MutableLiveData<Event<Resource<List<PokemonElement>>>>()
     val pokemonList: LiveData<Event<Resource<List<PokemonElement>>>> get() = _pokemonLits
 
-    fun getPokemonDatabase(
-        dispatcher: CoroutineContext = Dispatchers.IO
-    ) {
+    fun getPokemonDatabase(dispatcher: CoroutineContext = Dispatchers.IO) {
         viewModelScope.launch(dispatcher) {
             val result = pokemonRepository.getAllPokemonsLocal()
                 .map { PokemonElement(it.nombre, it.sprites, it.favorite, id = it.id) }
@@ -49,7 +49,7 @@ class PokemonListViewModel @Inject constructor(
                     val totalRequests = result.data!!.size
                     var succResponse = 0
                     result.data!!.forEach { p ->
-                        getPokemonDetailUseCase(p.url).collect() { detailResource ->
+                        getPokemonDetailUseCase(p.url).collect { detailResource ->
                             if (detailResource.status == Status.SUCCESS) {
                                 succResponse++
                                 if (succResponse == totalRequests) {
@@ -71,6 +71,12 @@ class PokemonListViewModel @Inject constructor(
                     getPokemonDatabase()
                 }
             }
+        }
+    }
+
+    fun onFavoriteClick(pokemon: PokemonElement, isFavorite: Boolean) {
+        viewModelScope.launch {
+            setPokemonFavorite(pokemon, isFavorite)
         }
     }
 }
