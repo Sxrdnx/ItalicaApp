@@ -1,6 +1,7 @@
 package com.example.technicaltest.ui.viewcomponent
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -28,24 +29,29 @@ class CircularView @JvmOverloads constructor(
 
     fun setErrorView(
         initialsText: String,
-        idTextColor: Int
+        idTextColor: Int,
+        textBackground: Drawable?,
+        placeHolder: Drawable?
     ) {
         if (initialsText.isEmpty())
             return
         val arrayStrings = initialsText.uppercase().split(" ")
         val firstInitial = arrayStrings.firstOrNull()?.first()
-        if (arrayStrings.isNotEmpty() && firstInitial != null && !firstInitial.equals("!")) {
+        if (arrayStrings.isNotEmpty() && firstInitial != null && isValidText(firstInitial.toString())) {
             if (arrayStrings.count() < 2)
                 textView.text = firstInitial.toString()
             else {
                 val secondInitial = arrayStrings[1].first()
-                textView.text = "$firstInitial$secondInitial"
+                textView.text = firstInitial.toString() + secondInitial.toString()
             }
             textView.setTextColor(idTextColor)
+            circularImageView.setImageDrawable(textBackground)
             textView.visibility = View.VISIBLE
-        }
+        } else
+            circularImageView.setImageDrawable(placeHolder)
     }
 
+    private fun isValidText(text: String) = text.contains("[A-Za-z]".toRegex())
 
 }
 

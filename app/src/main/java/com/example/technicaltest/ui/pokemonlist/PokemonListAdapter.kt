@@ -31,14 +31,16 @@ class PokemonListAdapter(
     inner class ViewHolder(private val pokemonlistview: ItemPokemonBinding) :
         RecyclerView.ViewHolder(pokemonlistview.root) {
         fun bid(pokemonElement: PokemonElement) = with(pokemonlistview) {
+            val placeholderId = R.drawable.pokeball_placeholder
+            val errorId = R.drawable.error_background
             root.setOnClickListener {
                 listener.onClickElement(pokemonElement.id)
             }
             if (pokemonElement.url.isNotEmpty()) {
                 val requestOptions = RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.pokeball_placeholder)
-                    .error(R.drawable.error_background)
+                    .placeholder(placeholderId)
+                    .error(errorId)
                 glide
                     .load(pokemonElement.url + "asdasdjsalkdasdjsj")
                     .apply(requestOptions)
@@ -49,8 +51,8 @@ class PokemonListAdapter(
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            setErrorImage(imageEmploye, pokemonElement.name)
-                            return false
+                            setErrorImage(imageEmploye, pokemonElement.name, errorId, placeholderId)
+                            return true
                         }
 
                         override fun onResourceReady(
@@ -65,16 +67,23 @@ class PokemonListAdapter(
                     .into(imageEmploye.getImageView())
                 textName.text = pokemonElement.name
             } else
-                setErrorImage(imageEmploye, pokemonElement.name)
+                setErrorImage(imageEmploye, pokemonElement.name, errorId, placeholderId)
 
         }
 
     }
 
-    private fun setErrorImage(circularView: CircularView, initialsText: String) {
+    private fun setErrorImage(
+        circularView: CircularView,
+        initialsText: String,
+        errorId: Int,
+        placeholderId: Int
+    ) {
         circularView.setErrorView(
             initialsText = initialsText,
-            idTextColor = ContextCompat.getColor(context, R.color.red)
+            idTextColor = ContextCompat.getColor(context, R.color.red),
+            textBackground = ContextCompat.getDrawable(context, errorId),
+            placeHolder = ContextCompat.getDrawable(context, placeholderId)
         )
     }
 
