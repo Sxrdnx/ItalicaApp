@@ -1,7 +1,6 @@
 package com.example.technicaltest.ui.viewcomponent
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,7 @@ class CircularView @JvmOverloads constructor(
     style: Int = 0
 ) : ConstraintLayout(context, attributeSet, style) {
 
-    val circularImageView: ShapeableImageView
+    private val circularImageView: ShapeableImageView
     private val textView: TextView
 
     init {
@@ -25,25 +24,25 @@ class CircularView @JvmOverloads constructor(
         textView = view.findViewById(R.id.textView)
     }
 
+    fun getImageView() = circularImageView
+
     fun setErrorView(
         initialsText: String,
-        idTextColor: Int,
-        textBackground: Drawable,
+        idTextColor: Int
     ) {
         if (initialsText.isEmpty())
             return
         val arrayStrings = initialsText.uppercase().split(" ")
         val firstInitial = arrayStrings.firstOrNull()?.first()
         if (arrayStrings.isNotEmpty() && firstInitial != null && !firstInitial.equals("!")) {
-            textView.setTextColor(idTextColor)
-            textView.visibility = View.VISIBLE
-            circularImageView.background = textBackground
             if (arrayStrings.count() < 2)
                 textView.text = firstInitial.toString()
             else {
                 val secondInitial = arrayStrings[1].first()
                 textView.text = "$firstInitial$secondInitial"
             }
+            textView.setTextColor(idTextColor)
+            textView.visibility = View.VISIBLE
         }
     }
 

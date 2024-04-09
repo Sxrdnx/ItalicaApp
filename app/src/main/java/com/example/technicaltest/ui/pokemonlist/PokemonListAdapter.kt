@@ -37,10 +37,10 @@ class PokemonListAdapter(
             if (pokemonElement.url.isNotEmpty()) {
                 val requestOptions = RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.img)
-                    .error(R.drawable.img)
+                    .placeholder(R.drawable.pokeball_placeholder)
+                    .error(R.drawable.error_background)
                 glide
-                    .load(pokemonElement.url)
+                    .load(pokemonElement.url + "asdasdjsalkdasdjsj")
                     .apply(requestOptions)
                     .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
@@ -62,7 +62,7 @@ class PokemonListAdapter(
                         ): Boolean = false
 
                     })
-                    .into(imageEmploye.circularImageView)
+                    .into(imageEmploye.getImageView())
                 textName.text = pokemonElement.name
             } else
                 setErrorImage(imageEmploye, pokemonElement.name)
@@ -74,11 +74,7 @@ class PokemonListAdapter(
     private fun setErrorImage(circularView: CircularView, initialsText: String) {
         circularView.setErrorView(
             initialsText = initialsText,
-            idTextColor = ContextCompat.getColor(context, R.color.colorSave),
-            textBackground = ContextCompat.getDrawable(
-                context,
-                R.drawable.img
-            )!!
+            idTextColor = ContextCompat.getColor(context, R.color.red)
         )
     }
 
@@ -93,7 +89,6 @@ class PokemonListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         layoutInflater = LayoutInflater.from(parent.context)
-
         val binding: ItemPokemonBinding = ItemPokemonBinding.inflate(
             layoutInflater,
             parent, false
